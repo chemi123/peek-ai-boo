@@ -1,0 +1,288 @@
+/* ============================================================
+   peek-ai-boo – Content Script Styles
+   All classes are namespaced with .peekaibu-* to avoid
+   conflicts with host page styles.
+   ============================================================ */
+
+/* ── Ask button ────────────────────────────────────────────── */
+.peekaibu-ask-btn {
+  all: initial;
+  position: absolute;
+  z-index: 2147483640;
+  display: none;
+  align-items: center;
+  gap: 4px;
+  padding: 5px 10px;
+  background: #6366f1;
+  color: #fff;
+  font-family: system-ui, sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  border-radius: 20px;
+  border: none;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(99,102,241,0.4);
+  transition: transform 0.1s, box-shadow 0.1s;
+  white-space: nowrap;
+  pointer-events: auto;
+}
+
+.peekaibu-ask-btn.visible {
+  display: flex;
+}
+
+.peekaibu-ask-btn:hover {
+  background: #4f46e5;
+  box-shadow: 0 4px 12px rgba(99,102,241,0.5);
+  transform: translateY(-1px);
+}
+
+.peekaibu-ask-btn:active {
+  transform: translateY(0);
+}
+
+/* ── Question panel ────────────────────────────────────────── */
+.peekaibu-panel {
+  all: initial;
+  position: absolute;
+  z-index: 2147483641;
+  display: none;
+  flex-direction: column;
+  gap: 8px;
+  width: 340px;
+  background: #fff;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.15);
+  padding: 12px;
+  font-family: system-ui, sans-serif;
+  font-size: 14px;
+  color: #111;
+  pointer-events: auto;
+}
+
+.peekaibu-panel.visible {
+  display: flex;
+}
+
+.peekaibu-panel-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.peekaibu-panel-label {
+  font-size: 13px;
+  font-weight: 600;
+  color: #6366f1;
+}
+
+.peekaibu-panel-close {
+  all: initial;
+  cursor: pointer;
+  font-size: 14px;
+  color: #9ca3af;
+  padding: 2px 4px;
+  border-radius: 4px;
+  transition: color 0.1s;
+  font-family: system-ui, sans-serif;
+}
+
+.peekaibu-panel-close:hover {
+  color: #374151;
+}
+
+.peekaibu-selected-preview {
+  padding: 6px 8px;
+  background: #f3f4f6;
+  border-left: 3px solid #6366f1;
+  border-radius: 0 4px 4px 0;
+  font-size: 12px;
+  color: #6b7280;
+  line-height: 1.4;
+  max-height: 60px;
+  overflow: hidden;
+}
+
+.peekaibu-question {
+  all: initial;
+  width: 100%;
+  box-sizing: border-box;
+  padding: 8px;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  font-family: system-ui, sans-serif;
+  font-size: 14px;
+  color: #111;
+  resize: vertical;
+  min-height: 52px;
+  outline: none;
+  transition: border-color 0.15s;
+}
+
+.peekaibu-question:focus {
+  border-color: #6366f1;
+  box-shadow: 0 0 0 2px rgba(99,102,241,0.2);
+}
+
+.peekaibu-panel-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.peekaibu-submit {
+  all: initial;
+  cursor: pointer;
+  padding: 7px 16px;
+  background: #6366f1;
+  color: #fff;
+  font-family: system-ui, sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  border-radius: 8px;
+  transition: background 0.15s;
+}
+
+.peekaibu-submit:hover {
+  background: #4f46e5;
+}
+
+.peekaibu-submit:disabled {
+  background: #a5b4fc;
+  cursor: not-allowed;
+}
+
+.peekaibu-hint {
+  font-size: 11px;
+  color: #9ca3af;
+}
+
+/* ── Answer area inside panel ──────────────────────────────── */
+.peekaibu-answer {
+  padding: 8px;
+  background: #f9fafb;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  font-size: 13px;
+  line-height: 1.6;
+  color: #374151;
+  max-height: 220px;
+  overflow-y: auto;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+.peekaibu-answer.error {
+  color: #dc2626;
+  background: #fef2f2;
+  border-color: #fecaca;
+}
+
+.peekaibu-answer.hidden,
+.peekaibu-loading.hidden {
+  display: none;
+}
+
+/* ── Loading spinner ───────────────────────────────────────── */
+.peekaibu-loading {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  color: #6b7280;
+}
+
+.peekaibu-spinner {
+  display: inline-block;
+  width: 14px;
+  height: 14px;
+  border: 2px solid #d1d5db;
+  border-top-color: #6366f1;
+  border-radius: 50%;
+  animation: peekaibu-spin 0.7s linear infinite;
+}
+
+@keyframes peekaibu-spin {
+  to { transform: rotate(360deg); }
+}
+
+/* ── Highlighted text in page ──────────────────────────────── */
+mark.peekaibu-highlight {
+  all: revert;
+  background: #fef08a;
+  border-bottom: 2px solid #eab308;
+  border-radius: 2px;
+  cursor: pointer;
+  padding: 0 1px;
+  transition: background 0.15s;
+}
+
+mark.peekaibu-highlight:hover {
+  background: #fde047;
+}
+
+/* ── Response tooltip (shown on highlight click) ───────────── */
+.peekaibu-response-tooltip {
+  all: initial;
+  position: absolute;
+  z-index: 2147483642;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  width: 360px;
+  max-width: calc(100vw - 32px);
+  background: #1e1e2e;
+  color: #cdd6f4;
+  border-radius: 12px;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.35);
+  padding: 12px 14px;
+  font-family: system-ui, sans-serif;
+  font-size: 13px;
+  pointer-events: auto;
+}
+
+.peekaibu-tooltip-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.peekaibu-tooltip-q {
+  font-size: 12px;
+  font-weight: 600;
+  color: #89b4fa;
+  line-height: 1.4;
+  flex: 1;
+}
+
+.peekaibu-tooltip-close {
+  all: initial;
+  cursor: pointer;
+  font-size: 13px;
+  color: #6c7086;
+  padding: 0 4px;
+  font-family: system-ui, sans-serif;
+  flex-shrink: 0;
+  transition: color 0.1s;
+}
+
+.peekaibu-tooltip-close:hover {
+  color: #cdd6f4;
+}
+
+.peekaibu-tooltip-answer {
+  line-height: 1.65;
+  white-space: pre-wrap;
+  word-break: break-word;
+  max-height: 240px;
+  overflow-y: auto;
+  color: #cdd6f4;
+}
+
+.peekaibu-tooltip-meta {
+  font-size: 11px;
+  color: #6c7086;
+  text-align: right;
+}

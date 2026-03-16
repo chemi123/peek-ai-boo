@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>peek-ai-boo – 設定</title>
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <div class="container">
+    <header class="header">
+      <div class="logo">💬</div>
+      <div>
+        <h1 class="title">peek-ai-boo</h1>
+        <p class="subtitle">選択テキストに対してAIに質問</p>
+      </div>
+    </header>
+
+    <form id="settings-form">
+      <!-- Provider -->
+      <div class="field">
+        <label class="label" for="provider">AIプロバイダー</label>
+        <select class="select" id="provider" name="provider">
+          <option value="gemini">Gemini (Google) — 無料枠あり</option>
+          <option value="claude">Claude (Anthropic)</option>
+          <option value="openai">OpenAI</option>
+        </select>
+      </div>
+
+      <!-- Model -->
+      <div class="field">
+        <label class="label" for="model">モデル</label>
+        <select class="select" id="model" name="model"></select>
+      </div>
+
+      <!-- API Key -->
+      <div class="field">
+        <label class="label" for="api-key">APIキー</label>
+        <div class="input-wrap">
+          <input
+            class="input"
+            type="password"
+            id="api-key"
+            name="apiKey"
+            placeholder="sk-..."
+            autocomplete="off"
+            spellcheck="false"
+          >
+          <button type="button" class="toggle-visibility" id="toggle-key" aria-label="表示切替">👁</button>
+        </div>
+        <p class="help-text" id="key-hint"></p>
+      </div>
+
+      <button type="submit" class="btn-primary" id="save-btn">保存</button>
+      <p class="status" id="status"></p>
+    </form>
+
+    <hr class="divider">
+
+    <!-- Q&A history -->
+    <section class="history-section">
+      <div class="history-header">
+        <span class="history-title">保存された Q&amp;A</span>
+        <button type="button" class="btn-ghost" id="clear-all">すべて削除</button>
+      </div>
+      <ul class="history-list" id="history-list">
+        <li class="history-empty">まだ質問がありません</li>
+      </ul>
+    </section>
+  </div>
+  <script src="popup.js"></script>
+</body>
+</html>
